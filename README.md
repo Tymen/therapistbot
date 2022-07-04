@@ -1,5 +1,5 @@
-## **chocolatecookie**
+## **therapy**
 
 Usage: +help <br />
-Made with ❤ for server: **homies<33** <br />
+Made with ❤ for server: **therapy** <br />
 By Vysix 
