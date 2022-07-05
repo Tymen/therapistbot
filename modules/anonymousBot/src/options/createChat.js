@@ -11,13 +11,19 @@ function checkIfIsAnyServer(message, servers) {
     return false;
 }
 
-const createChat = (message, args, servers) => {
-    if (checkIfIsAnyServer(message, servers)) {
-        servers[1].channels.create("test", "text");
-        timer = setTimeout(5000, {
-            
+const createChat = async (message, args, servers) => {
+    if (checkIfIsAnyServer(message, servers) && message.channel.type === "DM") {
+        const channel = await servers[1].channels.create(message.author.username, "text")
+        .then(channel => {
+            let category = servers[1].channels.cache.find(c => c.name == "anonymousbot" && c.type == "GUILD_CATEGORY");
+            if (!category) throw new Error("Category channel does not exist");
+            channel.setParent(category.id);
+        }).catch(console.error);
+    }else {
+        message.channel.send("You can only create a chat when you are in the server and if you are messaging the bot!")
+        .then(msg => {
+            setTimeout(() => msg.delete(), 5000)
         })
-        servers[1].channels.cache.find(channel => channel.name == "test")
     }
 }
 module.exports = { createChat };

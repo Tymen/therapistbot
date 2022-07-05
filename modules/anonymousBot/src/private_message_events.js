@@ -1,11 +1,20 @@
-module.exports = (client, triggerText, replyText) => {
+module.exports = (client, servers) => {
     client.on("messageCreate", message => {
-        if (message.content.toLowerCase() === triggerText.toLowerCase()) {
-            message.author.send(replyText)
-        }
+        // if (message.content.toLowerCase() === triggerText.toLowerCase()) {
+        //     message.author.send(replyText)
+        // }
         if (message.channel.type === 'DM') {
             console.log(message.content)
-            message.author.send(message.content).catch(console.error);
+            if (!message.author.bot) {
+                let channel = servers[1].channels.cache.find(channel => channel.name == "test")
+                channel.send(message.content)
+            }
+            // message.author.send(message.content).catch(console.error);
+        } else if (message.channel.type == "GUILD_TEXT") {
+            if (!message.author.bot) {
+                let author = client.users.cache.get("269521399188684802")
+                author.send(message.content);
+            }
         }
     })
 }

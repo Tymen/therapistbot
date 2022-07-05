@@ -27,14 +27,14 @@ var servers = [];
 
 // <=========> Status Message <=========> //
 client.once('ready', () => {
+    servers = client.guilds.cache.map(guilds => guilds);
     console.log("Bot is online!");
-    privateMessage(client, "ping", 'pong');
+    privateMessage(client, servers);
     client.user.setActivity("+help", {type: "WATCHING"});
 })
 
 // <=========> Listen for messages <=========> //
 client.on('messageCreate', message => {
-    servers = client.guilds.cache.map(guilds => guilds);
     EventResponse(message, client, servers);
 })
 
