@@ -12,7 +12,7 @@ require('dotenv').config();
 // Define Variables
 const botName = process.env.BOT_NAME;
 const serverName = process.env.SERVER_NAME;
-const defaultColor = '#0099ff'
+const defaultColor = '#126a38'
 const defaultAuthor = { name: botName };
 
 // Custom messages
@@ -35,22 +35,21 @@ const customMessage = {
         .setThumbnail(Author.avatarURL())
     },
     help: () => {
+        let cPrefix = process.env.COMMAND_PREFIX
+        let cSuffix = `<:green:994723527758458901> ${cPrefix}`
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
         .setTitle(`${botName} command list`)
-        .setAuthor({name: '\u200B'})
         .addFields(
-            { name: '\u200B', value: '\u200B', inline: false },
-            { name: '**-> +help**', value: "shows a list of all available commands", inline: false},
-            { name: '**-> +play | +p**', value: "Play music from youtube! use links or search arguments", inline: false},
-            { name: '**-> +forceplay | +fplay**', value: "Force play a song!", inline: false},
-            { name: '**-> +queue | +q**', value: "A list with the current songs in the queue", inline: false},
-            { name: '**-> +stop**', value: "Stop playing music and disconnect the bot from the voice channel", inline: false},
-            { name: '**-> +pause**', value: "Pause the music", inline: false},
-            { name: '**-> +unpause**', value: "unpause the music", inline: false}
+            { name: '. . . . . . . . . . . . . . . . . . . . . . . . .', value: '\u200B', inline: false },
+            { name: `**${cSuffix}help**`, value: "shows a list of all available commands", inline: false},
+            { name: `**${cSuffix}play | ${cPrefix}p**`, value: "Play music from youtube! use links or search arguments", inline: false},
+            { name: `**${cSuffix}forceplay | ${cPrefix}fplay**`, value: "Force play a song!", inline: false},
+            { name: `**${cSuffix}queue | ${cPrefix}q**`, value: "A list with the current songs in the queue", inline: false},
+            { name: `**${cSuffix}stop**`, value: "Stop playing music and disconnect the bot from the voice channel", inline: false},
+            { name: `**${cSuffix}pause**`, value: "Pause the music", inline: false},
+            { name: `**${cSuffix}unpause**`, value: "unpause the music", inline: false},
         )
-        
-        .setThumbnail("https://cdn.discordapp.com/attachments/980907254490464256/993610094900170824/Screenshot_2022-01-23_174856.png")
     },
     tempMessage: (message, value, delay) => {
         message.channel.send(value).then( msg => {

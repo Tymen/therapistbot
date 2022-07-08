@@ -19,23 +19,35 @@ const client = new Client({ intents: [
 // Module imports
 require('dotenv').config();
 const { EventResponse } = require('./modules/commands')
-
+const { serverStatus } = require('./modules/serverstatus/main')
+const { dbconnection } = require('./database');
 // Define Variable
 const { customMessage } = require('./modules/customMessage')
 const welcome = client.channels.cache.get('764855446938189836')
-var servers = [];
+var server = [];
 
 // <=========> Status Message <=========> //
-client.once('ready', () => {
-    servers = client.guilds.cache.map(guilds => guilds);
+client.once('ready', async () => {
     console.log("Bot is online!");
-    privateMessage(client, servers);
+
+    await setServer();
+    privateMessage(client, server);
+    
+    // let dbConnection = await new dbconnection();
+    // setTimeout(async () => {
+    //     await dbConnection.closeDatabaseConnection();
+    // }, 500);
+
+    setInterval(async () => {
+        console.log("Status updated!")
+        await serverStatus.updateStatus(server)
+    }, 900000)
+
     client.user.setActivity("+help", {type: "WATCHING"});
 })
-
 // <=========> Listen for messages <=========> //
 client.on('messageCreate', message => {
-    EventResponse(message, client, servers);
+    EventResponse(message, client, server);
 })
 
 // <=========> Listen for people that join the server <=========> //
@@ -47,7 +59,9 @@ client.on('guildMemberAdd', member => {
 // client.on('guildMemberRemove', member => {
 //     member.guild.channels.cache.find(channel => channel.name === 'infos').send(customMessage.leaveMessage(member.user, client))
 // })
-
+let setServer = async () => {
+    server = client.guilds.cache.find(guilds => guilds.id === process.env.SERVER_ID)
+}
 // <=========> Login to the discord bot client <=========> //
 
 client.login(process.env.BOT_TOKEN)

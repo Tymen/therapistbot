@@ -5,6 +5,7 @@ require('dotenv').config();
 const { customMessage } = require('./customMessage')
 const { music } = require('./music/main')
 const { anonymousBot } = require('./anonymousBot/main');
+const { serverStatus } = require('./serverstatus/main');
 
 // Define Variable
 const prefix = process.env.COMMAND_PREFIX;
@@ -16,7 +17,7 @@ const replyEmbed = (message, value) => {
 }
 
 // <=========> Command Handler <=========> //
-const EventResponse = (message, client, servers) => {
+const EventResponse = (message, client, server) => {
     if (!message.author.bot && message.content.startsWith(prefix)){
 
         const args = message.content.slice(prefix.length).trim().split(' ');
@@ -29,10 +30,10 @@ const EventResponse = (message, client, servers) => {
                 replyEmbed(message, customMessage.help())
                 break;
             case 'play': case 'p':
-                music.playMusic(message, args, servers);
+                music.playMusic(message, args, server);
                 break;
             case 'forceplay': case 'fplay': 
-                music.forcePlay(message, args, servers);
+                music.forcePlay(message, args, server);
                 break;
             case 'pause':
                 music.pause();
@@ -41,10 +42,10 @@ const EventResponse = (message, client, servers) => {
                 music.unpause();
                 break;
             case 'stop':
-                music.stop(message, servers);
+                music.stop(message, server);
                 break;
             case 'skip':
-                music.skip(message, servers);
+                music.skip(message, server);
                 break;
             case 'queue': case 'q': 
                 if (servers[message.guild.id]) {
@@ -54,7 +55,11 @@ const EventResponse = (message, client, servers) => {
                 }
                 break;
             case 'createchat': {
-                anonymousBot.createChat(message, args, servers);
+                anonymousBot.createChat(message, args, server);
+                break;
+            }
+            case 'updatestatus': {
+                serverStatus.updateStatus(server);
                 break;
             }
         }
