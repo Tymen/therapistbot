@@ -18,6 +18,7 @@ class dbconnection {
       console.error('Unable to connect to the database:', error);
     }
   }
+  
   getDatabaseConnection(){
     return this.sequelize
   }

@@ -1,96 +1,63 @@
 // There is room for making the code shorter because all the roll status channels could be combined in one.
+const { roleCounters } = require('../roleCounter.json')
 
-let setChannelMemberCount = (server, channel_id) => {
-    let channel = server.channels.cache.find(channel => channel.id === channel_id)
-    channel.setName("residents: " + server.members.cache.filter(member => !member.user.bot).size)
+let getOnlineMembers = async (server) => {
+    let count = 0;
+
+    server.members.cache.forEach(member => {
+        if (member.presence) {
+            if ((
+                member.presence.status === 'online' || 
+                member.presence.status === 'dnd' || 
+                member.presence.status === 'idle') 
+                && !member.user.bot) {
+                count++;
+            }
+        }
+    })
+    return count;
 }
 
-let setChannelAdminCount = (server, channel_id) => {
+let getTotalMembers = async (server) => {
+    return await server.members.cache.filter(member => !member.user.bot).size;
+}
+
+let setChannelMemberCount = async (server, channel_id) => {
+    let channel = server.channels.cache.find(channel => channel.id === channel_id)
+    await channel.setName("residents: " + await getTotalMembers(server))
+}
+
+let setChannelRoleCount = async (server, {channel_id, role_id, channel_title}) => {
     let count = 0;
     let channel = server.channels.cache.find(channel => channel.id === channel_id)
 
     server.members.cache.forEach(member => {
-        if (member.roles.cache.some(role => role.id === '993914768190611476')) {
+        if (member.roles.cache.some(role => role.id === role_id)) {
             count++
         }
     })
-
-    channel.setName("admins: " + count)
+    await channel.setName(`${channel_title} ${count}`)
 }
 
-let setChannelModeratorCount = (server, channel_id) => {
-    let count = 0;
+let setChannelOnlineCount = async (server, channel_id) => {
     let channel = server.channels.cache.find(channel => channel.id === channel_id)
-
-    server.members.cache.forEach(member => {
-        if (member.roles.cache.some(role => role.id === '993915188044632075')) {
-            count++
-        }
-    })
-
-    channel.setName("moderators: " + count)
+    await channel.setName("online: " + await getOnlineMembers(server))
 }
 
-let setChannelServerBoosterCount = (server, channel_id) => {
-    let count = 0;
+let setChannelOfflineCount = async (server, channel_id) => {
     let channel = server.channels.cache.find(channel => channel.id === channel_id)
-
-    server.members.cache.forEach(member => {
-        if (member.roles.cache.some(role => role.id === '994712318397132871')) {
-            count++
-        }
-    })
-
-    channel.setName("booster: " + count)
-}
-
-let setChannelHelperCount = (server, channel_id) => {
-    let count = 0;
-    let channel = server.channels.cache.find(channel => channel.id === channel_id)
-
-    server.members.cache.forEach(member => {
-        if (member.roles.cache.some(role => role.id === '993915460108156970')) {
-            count++
-        }
-    })
-
-    channel.setName("helper: " + count)
-}
-
-let setChannelOnlineCount = (server, channel_id) => {
-    let count = 0;
-    let channel = server.channels.cache.find(channel => channel.id === channel_id)
-
-    server.members.cache.forEach(member => {
-        if (member.presence.status === 'online') {
-            count++;
-        }
-    })
-
-    channel.setName("online: " + count)
-}
-
-let setChannelOfflineCount = (server, channel_id) => {
-    let count = 0;
-    let channel = server.channels.cache.find(channel => channel.id === channel_id)
-
-    server.members.cache.forEach(member => {
-        if (member.presence.status === 'offline') {
-            count++;
-        }
-    })
-
-    channel.setName("offline: " + count)
+    let offlineMembers = (await getTotalMembers(server)) - (await getOnlineMembers(server))
+    await channel.setName("offline: " + offlineMembers)
 }
 
 const updateStatus = async (server) => {
-    setChannelMemberCount(server, "994578293674225828")
-    setChannelAdminCount(server, "994586001953521736")
-    setChannelModeratorCount(server, "994598879095947404")
-    setChannelOnlineCount(server, "994707993419587685")
-    setChannelOfflineCount(server, "994709558905815203")
-    setChannelServerBoosterCount(server, "994711970148257802")
-    setChannelHelperCount(server, "994712910683185202")
+    for(let i = 0; i < roleCounters.length; i++) {
+        await setChannelRoleCount(server, roleCounters[i]);
+    }
+
+    await setChannelMemberCount(server, "994578293674225828")
+    await setChannelOnlineCount(server, "994707993419587685")
+    await setChannelOfflineCount(server, "994709558905815203")
 }
 
 module.exports = { updateStatus };
