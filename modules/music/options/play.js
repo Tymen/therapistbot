@@ -3,6 +3,9 @@
 // Import discord voice and customMessage module
 const { joinVoiceChannel, getVoiceConnection, createAudioResource } = require('@discordjs/voice');
 const { customMessage } = require('../../customMessage')
+require('dotenv').config();
+
+const botName = process.env.BOT_NAME;
 
 const play = async (message, ytdl, servers, player, option) => {
     let playMusic = async (voiceConnection, message) => {
@@ -15,6 +18,8 @@ const play = async (message, ytdl, servers, player, option) => {
         resource: create a audio source that discord can use.
 
         */
+
+        // need to change this because server is changed
         let connection = voiceConnection(message.guild.id);
         let server = servers[message.guild.id];
         let stream = await ytdl.stream(server.queue[0].url)
@@ -75,7 +80,7 @@ const play = async (message, ytdl, servers, player, option) => {
                 getVoiceConnection(message.guild.id).destroy();
             }
         } else {
-            message.channel.send("chocolatecookie is not in a voice channel!")
+            message.channel.send(`${botName} is not in a voice channel!`)
         }
     }
 }
