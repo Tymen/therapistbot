@@ -20,7 +20,7 @@ const client = new Client({ intents: [
 require('dotenv').config();
 const { EventResponse } = require('./modules/commands')
 const { serverStatus } = require('./modules/serverstatus/main')
-const { dbconnection } = require('./database');
+const { dbConnection } = require('./database')
 // Define Variable
 const { customMessage } = require('./modules/customMessage')
 const welcome = client.channels.cache.get('764855446938189836')

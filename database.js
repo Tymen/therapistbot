@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-class dbconnection {
+class dbConnection {
   constructor() {
     this.sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
       host: process.env.DB_HOST,
@@ -33,4 +33,4 @@ class dbconnection {
   }
 }
 
-module.exports = { dbconnection }
+module.exports = { dbConnection }
