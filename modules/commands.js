@@ -4,8 +4,8 @@
 require('dotenv').config();
 const { customMessage } = require('./customMessage')
 const { music } = require('./music/main')
-const { anonymousBot } = require('./anonymousBot/main');
-const { serverStatus } = require('./serverstatus/main');
+const { safeChat } = require('./safeChat/main');
+const { serverStatus } = require('./serverStatus/main');
 
 // Define Variable
 const prefix = process.env.COMMAND_PREFIX;
@@ -55,7 +55,7 @@ const EventResponse = (message, client, server) => {
                 }
                 break;
             case 'createchat': {
-                anonymousBot.createChat(message, args, server);
+                safeChat.createChat(message, args, server);
                 break;
             }
             case 'updatestatus': {

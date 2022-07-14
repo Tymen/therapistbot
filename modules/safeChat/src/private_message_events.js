@@ -12,7 +12,7 @@ module.exports = (client, servers) => {
             // message.author.send(message.content).catch(console.error);
         } else if (message.channel.type == "GUILD_TEXT" && message.channel.name == "test") {
             if (!message.author.bot) {
-                let author = client.users.cache.get("822162104407556148")
+                let author = client.users.cache.get("269521399188684802")
                 author.send(message.content);
             }
         }

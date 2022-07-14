@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config();
 
 class dbConnection {
@@ -9,7 +9,23 @@ class dbConnection {
     });
 
     this.#authenticate();
+
+    this.db = {}
+
+    this.db.Sequelize = Sequelize;
+    this.db.sequelize = this.sequelize;
+
+    this.db.safeChatUsers = require('./modules/models/safeChatUserModel')(this.sequelize, DataTypes)
   }
+
+  async migrateDB() {
+    try {
+      this.db.sequelize.sync({ force: false })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   async #authenticate() {
     try {
       await this.sequelize.authenticate();
@@ -19,8 +35,8 @@ class dbConnection {
     }
   }
   
-  getDatabaseConnection(){
-    return this.sequelize
+  getDB(){
+    return this.db
   }
 
   async closeDatabaseConnection() {

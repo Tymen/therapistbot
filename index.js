@@ -2,7 +2,7 @@
 
 // Discord imports
 const { Client, Intents} = require('discord.js');
-const privateMessage = require('./modules/anonymousBot/src/private_message_events');
+const privateMessage = require('./modules/safeChat/src/private_message_events');
 const client = new Client({ intents: [
     Intents.FLAGS.GUILDS, 
     Intents.FLAGS.GUILD_MEMBERS, 
@@ -19,7 +19,7 @@ const client = new Client({ intents: [
 // Module imports
 require('dotenv').config();
 const { EventResponse } = require('./modules/commands')
-const { serverStatus } = require('./modules/serverstatus/main')
+const { serverStatus } = require('./modules/serverStatus/main')
 const { dbConnection } = require('./database')
 // Define Variable
 const { customMessage } = require('./modules/customMessage')
@@ -33,10 +33,10 @@ client.once('ready', async () => {
     await setServer();
     privateMessage(client, server);
     
-    // let dbConnection = await new dbconnection();
-    // setTimeout(async () => {
-    //     await dbConnection.closeDatabaseConnection();
-    // }, 500);
+     let db = await new dbConnection();
+     await db.migrateDB().then( async () => {
+        console.log("Succesfully migrated database")
+    });
 
     setInterval(async () => {
         console.log("Status updated!")

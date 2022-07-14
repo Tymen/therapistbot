@@ -36,7 +36,7 @@ const customMessage = {
     },
     help: () => {
         let cPrefix = process.env.COMMAND_PREFIX
-        let cSuffix = `<:green:994723527758458901> ${cPrefix}`
+        let cSuffix = `<:green:994975541356671086> ${cPrefix}`
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
         .setTitle(`${botName} command list`)
