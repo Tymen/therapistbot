@@ -9,8 +9,8 @@ const createChat = async (message, args, server, safeChatUser) => {
             channel.setParent(category.id);
             let newChat = {
                 dc_UserId: message.author.id,
-                channelId: channel.id,
-                staffUserId: "1"
+                dc_channelId: channel.id,
+                dc_staffUserId: "1"
             }
             console.log(newChat);
             await safeChatUser.create(newChat);

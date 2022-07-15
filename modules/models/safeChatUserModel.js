@@ -7,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true
         },
         dc_UserId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         dc_channelId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         dc_staffUserId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         }
     })
