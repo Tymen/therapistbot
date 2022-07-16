@@ -17,7 +17,7 @@ const replyEmbed = (message, value) => {
 }
 
 // <=========> Command Handler <=========> //
-const EventResponse = (message, client, server) => {
+const EventResponse = (message, client, server, db) => {
     if (!message.author.bot && message.content.startsWith(prefix)){
 
         const args = message.content.slice(prefix.length).trim().split(' ');
@@ -55,7 +55,11 @@ const EventResponse = (message, client, server) => {
                 }
                 break;
             case 'createchat': {
-                safeChat.createChat(message, args, server);
+                safeChat.createChat(message, args, server, db.safeChatUsers);
+                break;
+            }
+            case 'closechat': {
+                safeChat.closeChat(message, args, server, db.safeChatUsers);
                 break;
             }
             case 'updatestatus': {
@@ -66,7 +70,7 @@ const EventResponse = (message, client, server) => {
     }
 
     // <=========> Console message monitor <=========> //
-    console.log(message.author.username + ": " + message.content)
+    // console.log(message.author.username + ": " + message.content)
 }
 
 module.exports = { EventResponse }

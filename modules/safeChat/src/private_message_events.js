@@ -1,19 +1,25 @@
-module.exports = (client, servers) => {
-    client.on("messageCreate", message => {
-        // if (message.content.toLowerCase() === triggerText.toLowerCase()) {
-        //     message.author.send(replyText)
-        // }
+// const sfcPolicies = require('../../policies/safeChatPolicies').safeChatPolicies;
+module.exports = (client, servers, db) => {
+    client.on("messageCreate", async message => {
         if (message.channel.type === 'DM') {
-            console.log(message.content)
-            if (!message.author.bot) {
-                let channel = servers.channels.cache.find(channel => channel.name == "test")
-                channel.send(message.content)
+            let safeChatUser = db.safeChatUsers
+            let getSafeChatUser = await safeChatUser.findOne({ where: { dc_UserId: message.author.id } });
+            if (getSafeChatUser){
+                if (!message.author.bot) {
+                    let channel = servers.channels.cache.find(channel => channel.id == getSafeChatUser.dc_channelId)
+                    channel.send(message.content)
+                }
             }
+
             // message.author.send(message.content).catch(console.error);
-        } else if (message.channel.type == "GUILD_TEXT" && message.channel.name == "test") {
-            if (!message.author.bot) {
-                let author = client.users.cache.get("269521399188684802")
-                author.send(message.content);
+        } else if (message.channel.type == "GUILD_TEXT" && (message.channel.parent.name === "SUGGESTIONS" || message.channel.parent.name === "HELP")) {
+            let safeChatUser = db.safeChatUsers
+            let getSafeChatUser = await safeChatUser.findOne({ where: { dc_channelId: message.channel.id } });
+            if (getSafeChatUser) {
+                if (!message.author.bot) {
+                    let author = client.users.cache.get(getSafeChatUser.dc_UserId)
+                    author.send(message.content);
+                }
             }
         }
     })

@@ -25,16 +25,16 @@ const { dbConnection } = require('./database')
 const { customMessage } = require('./modules/customMessage')
 const welcome = client.channels.cache.get('764855446938189836')
 var server = [];
+let db = new dbConnection();
 
 // <=========> Status Message <=========> //
 client.once('ready', async () => {
     console.log("Bot is online!");
 
     await setServer();
-    privateMessage(client, server);
+    privateMessage(client, server, db.getDB());
     
-     let db = await new dbConnection();
-     await db.migrateDB().then( async () => {
+    await db.migrateDB().then( async () => {
         console.log("Succesfully migrated database")
     });
 
@@ -47,7 +47,7 @@ client.once('ready', async () => {
 })
 // <=========> Listen for messages <=========> //
 client.on('messageCreate', message => {
-    EventResponse(message, client, server);
+    EventResponse(message, client, server, db.getDB());
 })
 
 // <=========> Listen for people that join the server <=========> //

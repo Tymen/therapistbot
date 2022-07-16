@@ -49,6 +49,8 @@ const customMessage = {
             { name: `**${cSuffix}stop**`, value: "Stop playing music and disconnect the bot from the voice channel", inline: false},
             { name: `**${cSuffix}pause**`, value: "Pause the music", inline: false},
             { name: `**${cSuffix}unpause**`, value: "unpause the music", inline: false},
+            { name: `**${cSuffix}createchat**`, value: "**DM ONLY** Create a anonymous chat", inline: false},
+            { name: `**${cSuffix}closechat**`, value: "**DM ONLY** Close a anonymous chat", inline: false},
         )
     },
     tempMessage: (message, value, delay) => {

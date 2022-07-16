@@ -5,7 +5,8 @@ class dbConnection {
   constructor() {
     this.sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
       host: process.env.DB_HOST,
-      dialect: process.env.DB_TYPE
+      dialect: process.env.DB_TYPE,
+      logging: false
     });
 
     this.#authenticate();
@@ -13,6 +14,7 @@ class dbConnection {
     this.db = {}
 
     this.db.Sequelize = Sequelize;
+    this.db.Sequelize.logging = false;
     this.db.sequelize = this.sequelize;
 
     this.db.safeChatUsers = require('./modules/models/safeChatUserModel')(this.sequelize, DataTypes)
