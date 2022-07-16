@@ -22,6 +22,7 @@ require('dotenv').config();
 const { EventResponse } = require('./modules/commands')
 const { serverStatus } = require('./modules/serverStatus/main')
 const { dbConnection } = require('./database')
+const { privateVoice } = require('./modules/privateVoice/main')
 // Define Variable
 const { customMessage } = require('./modules/customMessage')
 const welcome = client.channels.cache.get('764855446938189836')
@@ -30,8 +31,6 @@ let db = new dbConnection();
 
 // <=========> Status Message <=========> //
 client.once('ready', async () => {
-    console.log("Bot is online!");
-
     await setServer();
     privateMessage(client, server, db.getDB());
     
@@ -45,6 +44,7 @@ client.once('ready', async () => {
     }, 900000)
 
     client.user.setActivity("+help", {type: "WATCHING"});
+    console.log("Bot is online!");
 })
 // <=========> Listen for messages <=========> //
 client.on('messageCreate', message => {
@@ -54,6 +54,10 @@ client.on('messageCreate', message => {
 // <=========> Listen for people that join the server <=========> //
 client.on('guildMemberAdd', member => {
     member.guild.channels.cache.find(channel => channel.name === 'infos').send({ embeds: [customMessage.welcomeMessage(member.user, client)] })
+})
+
+client.on('voiceStateUpdate', (oldState, newState) => {
+    privateVoice(oldState, newState, server, process.env.PRIVATE_VOICE_CHANNEL_ID)
 })
 
 // <=========> Not necessary for homies <=========> //

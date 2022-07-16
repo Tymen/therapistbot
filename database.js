@@ -31,7 +31,7 @@ class dbConnection {
   async #authenticate() {
     try {
       await this.sequelize.authenticate();
-      console.log('Connection has been established successfully.');
+      console.log('Connected to database!');
     } catch (error) {
       console.error('Unable to connect to the database:', error);
     }
