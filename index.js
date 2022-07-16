@@ -18,6 +18,7 @@ const client = new Client({ intents: [
 
 // Module imports
 require('dotenv').config();
+
 const { EventResponse } = require('./modules/commands')
 const { serverStatus } = require('./modules/serverStatus/main')
 const { dbConnection } = require('./database')
