@@ -2,6 +2,7 @@
 
 // Module imports
 require('dotenv').config();
+
 const { customMessage } = require('./customMessage')
 const { music } = require('./music/main')
 const { safeChat } = require('./safeChat/main');
