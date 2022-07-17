@@ -8,15 +8,17 @@ const addSafeChatUser = async (message, channel, safeChatUser) => {
     }
     console.log("Created new safechat!");
     await safeChatUser.create(newChat);
+    return safeChatUser;
 }
 
 const createNewChannel = async (message, args, server, safeChatUser) => {
-    const channel = await server.channels.create(message.author.username, "text")
+    const channel = await server.channels.create(`nr-unknown-resident`, "text")
     .then( async (channel) => {
         let category = server.channels.cache.find(c => c.name == "HELP" && c.type == "GUILD_CATEGORY");
         if (!category) throw new Error("Category channel does not exist");
         channel.setParent(category.id);
-        await addSafeChatUser(message, channel, safeChatUser);
+        let safechat = await addSafeChatUser(message, channel, safeChatUser);
+        channel.setName(`nr-${safechat.id}-resident`)
     }).catch(console.error);
 }
 
