@@ -11,7 +11,7 @@ const createPrivateVoice = async (server, onJoinState, category, channelName) =>
     }).then((channel) => {
         if(category){
             channel.setParent(category.id)
-            channel.userLimit("2")
+            channel.setUserLimit(2)
         }
         onJoinState.member.voice.setChannel(channel.id)
     })
@@ -29,7 +29,7 @@ const privateVoice = async(onLeftState, onJoinState, server, privateChannelID) =
         let getParentId = await onJoinState.member.voice.channel.parentId;
 
         if (getVCJoin.id == privateChannelID) {
-            const voiceChannelName = `reserved vc`
+            const voiceChannelName = `reserved`
             await createPrivateVoice(server, onJoinState, getCategory, voiceChannelName)
         }
 
