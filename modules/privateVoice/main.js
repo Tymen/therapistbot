@@ -23,7 +23,7 @@ const updatePrivateVoicePerms = async (server, channelId, permissions) => {
 
 const privateVoice = async(onLeftState, onJoinState, server, privateChannelID) => {
     const getVCJoin = onJoinState.member.voice.channel;
-    const getCategory = server.channels.cache.find(c => c.name == "PRIVATE" && c.type == "GUILD_CATEGORY");
+    const getCategory = server.channels.cache.find(c => c.id == "997794639673315358");
 
     if (getVCJoin) {
         let getParentId = await onJoinState.member.voice.channel.parentId;
