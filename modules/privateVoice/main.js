@@ -1,4 +1,5 @@
 const { roles } = require('../../roles.json')
+
 const getMembers = (channelState) => {
     let memberCount = channelState.channel.members;
     return memberCount
@@ -30,15 +31,14 @@ const privateVoice = async(onLeftState, onJoinState, server, privateChannelID) =
             const voiceChannelName = `Private ${onJoinState.member.user.username}`
             await createPrivateVoice(server, onJoinState, getCategory, voiceChannelName)
         }
-        
+
         if(getParentId === getCategory.id) {
             const memberCount = getMembers(onJoinState).size
             if (memberCount >= 2) {
                 await updatePrivateVoicePerms(server, onJoinState.member.voice.channel.id, {
                     'VIEW_CHANNEL': false,
                     'CONNECT': false
-                })
-            }
+                })            }
         }
     }
 
@@ -53,9 +53,11 @@ const privateVoice = async(onLeftState, onJoinState, server, privateChannelID) =
                         'CONNECT': true
                     })
                 }
+                if (memberCount == 0) {
+                    onLeftState.channel.delete()
+                }
             }
         }
-
     };
 }
 
