@@ -11,6 +11,7 @@ const createPrivateVoice = async (server, onJoinState, category, channelName) =>
     }).then((channel) => {
         if(category){
             channel.setParent(category.id)
+            channel.userLimit("2")
         }
         onJoinState.member.voice.setChannel(channel.id)
     })
