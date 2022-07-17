@@ -28,7 +28,7 @@ const privateVoice = async(onLeftState, onJoinState, server, privateChannelID) =
         let getParentId = await onJoinState.member.voice.channel.parentId;
 
         if (getVCJoin.id == privateChannelID) {
-            const voiceChannelName = `Private ${onJoinState.member.user.username}`
+            const voiceChannelName = `Reserved VC`
             await createPrivateVoice(server, onJoinState, getCategory, voiceChannelName)
         }
 
