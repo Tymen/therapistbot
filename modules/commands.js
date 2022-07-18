@@ -63,6 +63,9 @@ const EventResponse = (message, client, server, db) => {
                 safeChat.closeChat(message, args, server, db.safeChatUsers);
                 break;
             }
+            case 'safechat': {
+                replyEmbed(message, customMessage.safechat());
+            }
             case 'updatestatus': {
                 serverStatus.updateStatus(server);
                 break;

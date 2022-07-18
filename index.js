@@ -53,7 +53,7 @@ client.on('messageCreate', message => {
 
 // <=========> Listen for people that join the server <=========> //
 client.on('guildMemberAdd', member => {
-    member.guild.channels.cache.find(channel => channel.name === 'infos').send({ embeds: [customMessage.welcomeMessage(member.user, client)] })
+    member.guild.channels.cache.find(channel => channel.id == '993920732914532452').send({ embeds: [customMessage.welcomeMessage(member.user, client)] })
 })
 
 client.on('voiceStateUpdate', (oldState, newState) => {

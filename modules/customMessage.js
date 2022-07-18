@@ -53,6 +53,19 @@ const customMessage = {
             { name: `**${cSuffix}closechat**`, value: "**DM ONLY** Close a anonymous chat", inline: false},
         )
     },
+    safechat: () => {
+        let cPrefix = process.env.COMMAND_PREFIX
+        let cSuffix = `<:green:994975541356671086> ${cPrefix}`
+        return new Discord.MessageEmbed()
+        .setColor(defaultColor)
+        .setTitle(`${botName} Safechat`)
+        .setDescription("Welcome to safechat, How can we help you ?\n Respond with what you want to talk about")
+        .addFields(
+            { name: '\u200B', value: '\u200B', inline: false },
+            { name: `**📜 Suggestion**`, value: "You have any suggestions or questions about the server you can talk to bob!", inline: false},
+            { name: `**🖐️ Help**`, value: "Bob is here to help you with your problems talk with him!", inline: false},
+        )
+    },
     tempMessage: (message, value, delay) => {
         message.channel.send(value).then( msg => {
             setTimeout( () => {
