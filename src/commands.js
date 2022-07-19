@@ -49,8 +49,8 @@ const EventResponse = (message, client, server, db) => {
                 music.skip(message, server);
                 break;
             case 'queue': case 'q': 
-                if (servers[message.guild.id]) {
-                    replyEmbed(message, music.getQueue(servers[message.guild.id]?.queue));
+                if (server[message.guild.id]) {
+                    replyEmbed(message, music.getQueue(server[message.guild.id]?.queue));
                 } else {
                     customMessage.tempMessage(message, "There are no songs in the queue", 5)
                 }
@@ -65,6 +65,9 @@ const EventResponse = (message, client, server, db) => {
             }
             case 'safechat': {
                 safeChat.safeChat(message, customMessage.safechat());
+            }
+            case 'createAnnouncements': {
+                
             }
             case 'updatestatus': {
                 serverStatus.updateStatus(server);

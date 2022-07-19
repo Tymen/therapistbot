@@ -3,9 +3,9 @@
 // Import discord voice module
 const { getVoiceConnection } = require('@discordjs/voice');
 
-const stop = (message, server) => {
+const stop = (message, servers) => {
     connection = getVoiceConnection(message.guild.id);
-    server.queue = [];
+    servers[message.guild.id].queue = [];
     if(connection) connection.destroy();
 }
 module.exports = { stop };

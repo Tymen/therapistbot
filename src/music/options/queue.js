@@ -4,7 +4,7 @@
 const { customMessage } = require('../../customMessage')
 
 const queue = {
-    addQueue: async (message, args, ytdl, server, option) => {
+    addQueue: async (message, args, ytdl, servers, option) => {
         if (!args[0]) {
             customMessage.tempMessage(message, "Provide a search argument or a link!", 5);
         }
@@ -13,12 +13,12 @@ const queue = {
             customMessage.tempMessage(message, "You must be in a voice channel to play music!", 5);
         }
         
-        if(!server) server= {
+        if(!servers[message.guild.id]) servers[message.guild.id] = {
             queue: []
         };
 
         if (args[0] && message.member.voice.channel) {
-            var server = server;
+            var server = servers[message.guild.id];
             let yt_info = await ytdl.search(args.join(" "), { source : { youtube : "video" } })
             musicCache = {
                 title: `${ yt_info[0].title } (${ yt_info[0].durationRaw }) | ${ yt_info[0].channel.name }`,
