@@ -1,4 +1,4 @@
-const { roles } = require('../../roles.json')
+const { roles } = require('../../config.json')
 
 const getMembers = (channelState) => {
     let memberCount = channelState.channel.members;

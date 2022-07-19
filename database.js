@@ -17,7 +17,7 @@ class dbConnection {
     this.db.Sequelize.logging = false;
     this.db.sequelize = this.sequelize;
 
-    this.db.safeChatUsers = require('./modules/models/safeChatUserModel')(this.sequelize, DataTypes)
+    this.db.safeChatUsers = require('./src/models/safeChatUserModel')(this.sequelize, DataTypes)
   }
 
   async migrateDB() {

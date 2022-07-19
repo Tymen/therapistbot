@@ -12,6 +12,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
     "@discordjs/voice": "^0.10.0",
+    "discord-buttons": "^4.0.0-deprecated",
     "discord.js": "^13.6.0",
     "dotenv": "^8.2.0",
     "ffmpeg": "^0.0.4",
