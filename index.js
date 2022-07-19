@@ -36,6 +36,7 @@ client.once('ready', async () => {
         console.log("Succesfully migrated database")
     });
 
+    // Seperate in it's own file
     setInterval(async () => {
         console.log("Status updated!")
         await serverStatus.updateStatus(server)

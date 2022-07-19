@@ -17,6 +17,11 @@ const reply = (message, value) => {
 const replyEmbed = (message, value) => {
     return message.channel.send({ embeds: [value] })
 }
+/**
+ * Need to organise this so its more clear what command belongs to what functionality
+ * 
+ * Might also wanna put all the functionality in a seperate folder
+ */
 
 // <=========> Command Handler <=========> //
 const EventResponse = (message, client, server, db) => {
