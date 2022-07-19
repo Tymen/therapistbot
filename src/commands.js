@@ -7,6 +7,7 @@ const { customMessage } = require('./customMessage')
 const { music } = require('./music/main')
 const { safeChat } = require('./safeChat/main');
 const { serverStatus } = require('./serverStatus/main');
+const { announcer } = require('./announcer/index')
 
 // Define Variable
 const prefix = process.env.COMMAND_PREFIX;
@@ -65,9 +66,11 @@ const EventResponse = (message, client, server, db) => {
             }
             case 'safechat': {
                 safeChat.safeChat(message, customMessage.safechat());
+                break;
             }
-            case 'createAnnouncements': {
-                
+            case 'createmsg': {
+                announcer.sendMessage(message, prefix, server)
+                break;
             }
             case 'updatestatus': {
                 serverStatus.updateStatus(server);

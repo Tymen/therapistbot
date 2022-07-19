@@ -45,6 +45,7 @@ const customMessage = {
             { name: `**${cSuffix}help**`, value: "shows a list of all available commands", inline: false},
             { name: `**${cSuffix}play | ${cPrefix}p**`, value: "Play music from youtube! use links or search arguments", inline: false},
             { name: `**${cSuffix}forceplay | ${cPrefix}fplay**`, value: "Force play a song!", inline: false},
+            { name: `**${cSuffix}skip**`, value: "Skip current song!", inline: false},
             { name: `**${cSuffix}queue | ${cPrefix}q**`, value: "A list with the current songs in the queue", inline: false},
             { name: `**${cSuffix}stop**`, value: "Stop playing music and disconnect the bot from the voice channel", inline: false},
             { name: `**${cSuffix}pause**`, value: "Pause the music", inline: false},
@@ -78,7 +79,6 @@ const customMessage = {
         embed.setColor(defaultColor)
         embed.setTitle(`${serverName} music queue`)
         embed.setAuthor({name:'\u200B'})
-        embed.setThumbnail("https://cdn.discordapp.com/attachments/964616970681085992/964671869116616785/unknown.png")
         embed.addField('\u200B', '\u200B', false);
         for (i = 0; i < queue.length; i++) {
             embed.addField(`${i + 1}: ${queue[i].title}`,'\u200B', false);
