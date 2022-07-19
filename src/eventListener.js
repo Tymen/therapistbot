@@ -13,15 +13,13 @@ module.exports = (client, server, db) => {
 
     // <=========> Listen for people that join the server <=========> //
     client.on('guildMemberAdd', member => {
-        member.guild.channels.cache.find(channel => channel.id == '993920732914532452').send({ embeds: [customMessage.welcomeMessage(member.user, client)] })
+        member.guild.channels.cache.find(channel => channel.id == '993920732914532452').send(`${member.user} joined the server`)
     })
 
     client.on('voiceStateUpdate', (oldState, newState) => {
         privateVoice(oldState, newState, server, channelId.privateVoice)
     })
-
-    // <=========> Not necessary for homies <=========> //
-    // client.on('guildMemberRemove', member => {
-    //     member.guild.channels.cache.find(channel => channel.name === 'infos').send(customMessage.leaveMessage(member.user, client))
-    // })
+    client.on('guildMemberRemove', member => {
+        member.guild.channels.cache.find(channel => channel.id === '993920745816207493').send(`${member.user} left the server`)
+    })
 }

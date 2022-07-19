@@ -22,7 +22,6 @@ const safeChat = {
     safeChat: async (message, safeChatEmbed) => {
         let chat = new SafeChat(message, safeChatEmbed);
         chat.sendMessage(message)
-        console.log(chat.getMessageId)
     }
 }
 

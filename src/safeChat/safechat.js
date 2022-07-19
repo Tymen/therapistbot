@@ -12,7 +12,6 @@ class SafeChat {
     async sendMessage(message) {
         let msg = await this.#replyEmbed(message, this.safeChatEmbed)
         this.messageId = msg.id
-        console.log(msg);
     }
 }
 module.exports = {SafeChat}

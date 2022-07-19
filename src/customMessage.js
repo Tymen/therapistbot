@@ -3,10 +3,6 @@
 // Discord Module
 const Discord = require('discord.js');
 
-let getMemberCount = (client) => {
-    return client.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
- };
-
 require('dotenv').config();
 
 // Define Variables
@@ -20,18 +16,16 @@ const customMessage = {
     welcomeMessage: (Author, client) => {
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
-        .setTitle("Welcome to the server, " + Author.username)
+        .setTitle("Welcome to the server, " + Author)
         .setAuthor(defaultAuthor)
         .setDescription("Don't forget to read the rules")
-        .setDescription("You're member: " + getMemberCount(client))
         .setThumbnail(Author.avatarURL())
     },
     leaveMessage: (Author, client) => {
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
-        .setTitle(Author.username + ' left the server')
+        .setTitle(Author + ' left the server')
         .setAuthor(defaultAuthor)
-        .setDescription(`${serverName} has ` + getMemberCount(client) + " members")
         .setThumbnail(Author.avatarURL())
     },
     help: () => {
@@ -59,12 +53,12 @@ const customMessage = {
         let cSuffix = `<:green:994975541356671086> ${cPrefix}`
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
-        .setTitle(`${botName} Safechat`)
-        .setDescription("Welcome to safechat, How can we help you ?\n Respond with what you want to talk about")
+        .setTitle(`Hello resident!`)
+        .setDescription("React to a role you want to use:")
         .addFields(
             { name: '\u200B', value: '\u200B', inline: false },
-            { name: `**📜 Suggestion**`, value: "You have any suggestions or questions about the server you can talk to bob!", inline: false},
-            { name: `**🖐️ Help**`, value: "Bob is here to help you with your problems talk with him!", inline: false},
+            { name: `**<:help:999084112092610661> Help**`, value: "\u200B", inline: true},
+            { name: `**<:suggestion:999086112502992977> Suggestion**`, value: "\u200B", inline: true}
         )
     },
     tempMessage: (message, value, delay) => {

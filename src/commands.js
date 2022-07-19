@@ -26,7 +26,10 @@ const EventResponse = (message, client, server, db) => {
         const command = args.shift().toLowerCase();
         switch(command) {
             case 'welcome':
-                replyEmbed(message, customMessage.welcomeMessage(message.author, client));
+                reply(message, `${message.author} joined the server`);
+                break;
+            case 'leave':
+                reply(message, `${message.author} left the server`);
                 break;
             case 'help':
                 replyEmbed(message, customMessage.help())
@@ -68,7 +71,7 @@ const EventResponse = (message, client, server, db) => {
                 safeChat.safeChat(message, customMessage.safechat());
                 break;
             }
-            case 'createmsg': {
+            case 'ann': {
                 announcer.sendMessage(message, prefix, server)
                 break;
             }

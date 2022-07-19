@@ -31,7 +31,7 @@ const createChat = async (message, args, server, safeChatUser) => {
         })
     } else {
         await createNewChannel(message, args, server, safeChatUser).then(() => {
-            message.channel.send("===============> \n**A safe chat session has been started!**\nYou can now start talking anonymously with Mr.Bob \n\nIf you like to close this session use: `+closechat`\n===============>")
+            message.channel.send("**Hello resident!**\n\nI have created an anonymous chat session.\n\nYou can start messaging me or you can use: `+closechat` to close this session.")
         })
     }
 }
