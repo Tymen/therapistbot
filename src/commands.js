@@ -73,7 +73,7 @@ const EventResponse = (message, client, server, db) => {
                 break;
             }
             case 'safechat': {
-                safeChat.safeChat(message, customMessage.safechat());
+                safeChat.createSafeChat(message, customMessage.safechat());
                 break;
             }
             case 'ann': {
