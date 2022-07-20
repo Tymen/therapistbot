@@ -21,9 +21,8 @@ const generalPolicies = {
             }
         })
     },
-    hasAdminRole: (message, server) => {
+    hasAdminRole: (member) => {
         return new Promise( async (resolve, reject) => {
-            let member = await server.members.fetch(message.author.id)
             if (member) {
                 member._roles.find(role => role === roles.ADMIN) ? resolve(true) : reject("User does not have the role: Admin")
             } else {
