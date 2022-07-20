@@ -1,6 +1,7 @@
 {
     "roles": {
-        "CONVERSATIONS": "994955270042165268"
+        "CONVERSATIONS": "994955270042165268",
+        "ADMIN": "993914768190611476"
     },
     "channelId": {
         "privateVoice": "993918914423685151",

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { roles } = require('../../config.json')
 const generalPolicies = {
     isServerMember: (server, message) => {
         return new Promise((resolve, reject) => {
@@ -14,7 +15,17 @@ const generalPolicies = {
         return new Promise( async (resolve, reject) => {
             let member = await server.members.fetch(message.author.id)
             if (member) {
-                member._roles.find(role => role === process.env.CONVERSATION_ROLE_ID) ? resolve(true) : reject("User does not have the role: CONVERSATIONS")
+                member._roles.find(role => role === roles.CONVERSATIONS) ? resolve(true) : reject("User does not have the role: CONVERSATIONS")
+            } else {
+                reject("User does not exist in the server!")
+            }
+        })
+    },
+    hasAdminRole: (message, server) => {
+        return new Promise( async (resolve, reject) => {
+            let member = await server.members.fetch(message.author.id)
+            if (member) {
+                member._roles.find(role => role === roles.ADMIN) ? resolve(true) : reject("User does not have the role: Admin")
             } else {
                 reject("User does not exist in the server!")
             }
