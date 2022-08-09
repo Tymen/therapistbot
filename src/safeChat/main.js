@@ -19,8 +19,11 @@ const safeChat = {
             await closeChat(message, args, server, safeChatUsers);
         }).catch(err => {console.log(err)})
     },
-    createSafeChat: async (message, safeChatEmbed) => {
-        await createSafeChatMessage(message, safeChatEmbed);
+    createSafeChat: async (message, safeChatEmbed, server, safeChatUsers) => {
+        await sfcPolicies.isUserAllowedSafeChat(server, message).then(async () => {
+            await createSafeChatMessage(message, safeChatEmbed, server, safeChatUsers);
+        }).catch(err => {console.log(err)})
+        
     }
 }
 

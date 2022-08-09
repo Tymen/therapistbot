@@ -8,7 +8,7 @@ require('dotenv').config();
 // Define Variables
 const botName = process.env.BOT_NAME;
 const serverName = process.env.SERVER_NAME;
-const defaultColor = '#126a38'
+const defaultColor = '#065466'
 const defaultAuthor = { name: botName };
 
 // Custom messages
@@ -30,7 +30,7 @@ const customMessage = {
     },
     help: () => {
         let cPrefix = process.env.COMMAND_PREFIX
-        let cSuffix = `<:green:994975541356671086> ${cPrefix}`
+        let cSuffix = `<:commands:1001565273196871770> ${cPrefix}`
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
         .setTitle(`${botName} command list`)
@@ -54,11 +54,11 @@ const customMessage = {
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
         .setTitle(`Hello resident!`)
-        .setDescription("React to a role you want to use:")
+        .setDescription("What can i help you with?")
         .addFields(
             { name: '\u200B', value: '\u200B', inline: false },
-            { name: `**<:help:999084112092610661> Help**`, value: "\u200B", inline: true},
-            { name: `**<:suggestion:999086112502992977> Suggestion**`, value: "\u200B", inline: true}
+            { name: `**- Help**`, value: "\u200B", inline: true},
+            { name: `**- Suggestion**`, value: "\u200B", inline: true}
         )
     },
     tempMessage: (message, value, delay) => {

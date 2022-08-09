@@ -11,10 +11,10 @@ const addSafeChatUser = async (message, channel, safeChatUser) => {
     return safeChatUser;
 }
 
-const createNewChannel = async (message, args, server, safeChatUser) => {
+const createNewChannel = async (message, catg, server, safeChatUser) => {
     await server.channels.create(`nrunknown-resident`, "text")
         .then( async (channel) => {
-            let category = server.channels.cache.find(c => c.name == "HELP" && c.type == "GUILD_CATEGORY");
+            let category = server.channels.cache.find(c => c.name == catg && c.type == "GUILD_CATEGORY");
             if (!category) throw new Error("Category channel does not exist");
             channel.setParent(category.id);
             await addSafeChatUser(message, channel, safeChatUser);
@@ -23,14 +23,14 @@ const createNewChannel = async (message, args, server, safeChatUser) => {
         }).catch(console.error);
 }
 
-const createChat = async (message, args, server, safeChatUser) => {
+const createChat = async (message, category, server, safeChatUser) => {
     const getSafeChatUser = await safeChatUser.findOne({ where: { dc_UserId: message.author.id } });
     if (getSafeChatUser) {
         message.channel.send("You already have an existing chat session! You can continue chatting with me!").then(message => {
             setTimeout(async () => {message.delete()}, 10000)
         })
     } else {
-        await createNewChannel(message, args, server, safeChatUser).then(() => {
+        await createNewChannel(message, category, server, safeChatUser).then(() => {
             message.channel.send("**Hello resident!**\n\nI have created an anonymous chat session.\n\nYou can start messaging me or you can use: `+closechat` to close this session.")
         })
     }
