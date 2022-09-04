@@ -4,7 +4,6 @@
 require('dotenv').config();
 
 const { customMessage } = require('./customMessage')
-const { music } = require('./music/main')
 const { safeChat } = require('./safeChat/main');
 const { serverStatus } = require('./serverStatus/main');
 const { announcer } = require('./announcer/index')
@@ -30,39 +29,8 @@ const EventResponse = (message, client, server, db) => {
         const args = message.content.slice(prefix.length).trim().split(' ');
         const command = args.shift().toLowerCase();
         switch(command) {
-            case 'welcome':
-                reply(message, `${message.author} joined the server`);
-                break;
-            case 'leave':
-                reply(message, `${message.author} left the server`);
-                break;
             case 'help':
                 replyEmbed(message, customMessage.help())
-                break;
-            case 'play': case 'p':
-                music.playMusic(message, args, server);
-                break;
-            case 'forceplay': case 'fplay': 
-                music.forcePlay(message, args, server);
-                break;
-            case 'pause':
-                music.pause();
-                break;
-            case 'unpause':
-                music.unpause();
-                break;
-            case 'stop':
-                music.stop(message, server);
-                break;
-            case 'skip':
-                music.skip(message, server);
-                break;
-            case 'queue': case 'q': 
-                if (server[message.guild.id]) {
-                    replyEmbed(message, music.getQueue(server[message.guild.id]?.queue));
-                } else {
-                    customMessage.tempMessage(message, "There are no songs in the queue", 5)
-                }
                 break;
             case 'closechat': {
                 safeChat.closeChat(message, args, server, db.safeChatUsers, client);
