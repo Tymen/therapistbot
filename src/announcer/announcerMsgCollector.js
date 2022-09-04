@@ -1,6 +1,6 @@
 // This code needs refactoring Not happy on how it looks and works!
-const startCollector = async (message, prefix, server, channelId) => {
-    const confirmation = await message.channel.send("**Hello admin!**\n\nYou can type the announcement and send it in this channel.\nThe session will end in 20 minutes.\n\nUse `" + prefix + "cancel` to cancel the message.");
+const startCollector = async (message, prefix, server, channelId, type) => {
+    const confirmation = await message.channel.send("**Hello admin!**\n\nYou can type the announcement for **" + type + "**, and send it in this channel.\nThe session will end in 20 minutes.\n\nUse `" + prefix + "cancel` to cancel the message.");
 
     const filter = (m) => m.author.id === message.author.id;
     const collector = await confirmation.channel.createMessageCollector(filter, {
@@ -26,7 +26,7 @@ const startCollector = async (message, prefix, server, channelId) => {
             if(announcementContent.length > 0) {
                 message.channel.send("The message has been send!")
                 collector.stop()
-                return server.channels.cache.get(channelId.announcement).send(announcementContent)
+                return server.channels.cache.get(channelId).send(announcementContent)
             }
         }
         if(!msg.content.toLowerCase().startsWith(prefix)) {

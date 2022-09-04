@@ -37,13 +37,10 @@ const customMessage = {
         .addFields(
             { name: '. . . . . . . . . . . . . . . . . . . . . . . . .', value: '\u200B', inline: false },
             { name: `**${cSuffix}help**`, value: "shows a list of all available commands", inline: false},
-            { name: `**${cSuffix}play | ${cPrefix}p**`, value: "Play music from youtube! use links or search arguments", inline: false},
-            { name: `**${cSuffix}forceplay | ${cPrefix}fplay**`, value: "Force play a song!", inline: false},
-            { name: `**${cSuffix}skip**`, value: "Skip current song!", inline: false},
-            { name: `**${cSuffix}queue | ${cPrefix}q**`, value: "A list with the current songs in the queue", inline: false},
-            { name: `**${cSuffix}stop**`, value: "Stop playing music and disconnect the bot from the voice channel", inline: false},
-            { name: `**${cSuffix}pause**`, value: "Pause the music", inline: false},
-            { name: `**${cSuffix}unpause**`, value: "unpause the music", inline: false},
+            { name: `**${cSuffix}ann**`, value: "Make a announcement for the server", inline: false},
+            { name: `**${cSuffix}events**`, value: "Make a announcement for an event", inline: false},
+            { name: `**${cSuffix}mod**`, value: "Make a announcement for the moderators", inline: false},
+            { name: `**${cSuffix}admin**`, value: "Make a announcement for admins", inline: false},
             // { name: `**${cSuffix}createchat**`, value: "**DM ONLY** Create a anonymous chat", inline: false},
             // { name: `**${cSuffix}closechat**`, value: "**DM ONLY** Close a anonymous chat", inline: false},
         )

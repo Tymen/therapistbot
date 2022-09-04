@@ -7,6 +7,8 @@ const { customMessage } = require('./customMessage')
 const { safeChat } = require('./safeChat/main');
 const { serverStatus } = require('./serverStatus/main');
 const { announcer } = require('./announcer/index')
+const { channelId } = require('../config.json')
+const gPolicies = require('./policies/generalPolicies').generalPolicies;
 
 // Define Variable
 const prefix = process.env.COMMAND_PREFIX;
@@ -23,29 +25,55 @@ const replyEmbed = (message, value) => {
  */
 
 // <=========> Command Handler <=========> //
-const EventResponse = (message, client, server, db) => {
+const EventResponse = async (message, client, server, db) => {
     if (!message.author.bot && message.content.startsWith(prefix)){
 
         const args = message.content.slice(prefix.length).trim().split(' ');
         const command = args.shift().toLowerCase();
         switch(command) {
             case 'help':
-                replyEmbed(message, customMessage.help())
+                await gPolicies.isAdmin(message.member).then(async () => {
+                    replyEmbed(message, customMessage.help())
+                }).catch(err => {console.log(err)})
                 break;
             case 'closechat': {
                 safeChat.closeChat(message, args, server, db.safeChatUsers, client);
                 break;
             }
             case 'safechat': {
-                safeChat.createSafeChat(message, customMessage.safechat(), server, db.safeChatUsers);
+                await gPolicies.isSuperUser(message.member).then(async () => {
+                    safeChat.createSafeChat(message, customMessage.safechat(), server, db.safeChatUsers);
+                }).catch(err => {console.log(err)})
                 break;
             }
             case 'ann': {
-                announcer.sendMessage(message, prefix, server)
+                await gPolicies.isAdmin(message.member).then(async () => {
+                    announcer.sendMessage(message, prefix, server)
+                }).catch(err => {console.log(err)})
+                break;
+            }
+            case 'event': {
+                await gPolicies.isModerator(message.member).then(async () => {
+                    announcer.sendMessage(message, prefix, server, channelId.events, "event")
+                }).catch(err => {console.log(err)})
+                break;
+            }
+            case 'admin': {
+                await gPolicies.isSuperUser(message.member).then(async () => {
+                    announcer.sendMessage(message, prefix, server, channelId.admin, "admin")
+            }).catch(err => {console.log(err)})
+                break;
+            }
+            case 'mod': {
+                await gPolicies.isAdmin(message.member).then(async () => {
+                    announcer.sendMessage(message, prefix, server, channelId.mod, "mod")
+                }).catch(err => {console.log(err)})
                 break;
             }
             case 'updatestatus': {
-                serverStatus.updateStatus(server);
+                await gPolicies.isAdmin(message.member).then(async () => {
+                    serverStatus.updateStatus(server);
+                }).catch(err => {console.log(err)})
                 break;
             }
         }
