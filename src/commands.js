@@ -32,7 +32,7 @@ const EventResponse = async (message, client, server, db) => {
         const command = args.shift().toLowerCase();
         switch(command) {
             case 'help':
-                await gPolicies.isAdmin(message.member).then(async () => {
+                await gPolicies.hasAdminRole(message.member).then(async () => {
                     replyEmbed(message, customMessage.help())
                 }).catch(err => {console.log(err)})
                 break;
@@ -47,13 +47,13 @@ const EventResponse = async (message, client, server, db) => {
                 break;
             }
             case 'ann': {
-                await gPolicies.isAdmin(message.member).then(async () => {
+                await gPolicies.hasAdminRole(message.member).then(async () => {
                     announcer.sendMessage(message, prefix, server)
                 }).catch(err => {console.log(err)})
                 break;
             }
             case 'event': {
-                await gPolicies.isModerator(message.member).then(async () => {
+                await gPolicies.hasModRole(message.member).then(async () => {
                     announcer.sendMessage(message, prefix, server, channelId.events, "event")
                 }).catch(err => {console.log(err)})
                 break;
@@ -65,13 +65,13 @@ const EventResponse = async (message, client, server, db) => {
                 break;
             }
             case 'mod': {
-                await gPolicies.isAdmin(message.member).then(async () => {
+                await gPolicies.hasAdminRole(message.member).then(async () => {
                     announcer.sendMessage(message, prefix, server, channelId.mod, "mod")
                 }).catch(err => {console.log(err)})
                 break;
             }
             case 'updatestatus': {
-                await gPolicies.isAdmin(message.member).then(async () => {
+                await gPolicies.hasAdminRole(message.member).then(async () => {
                     serverStatus.updateStatus(server);
                 }).catch(err => {console.log(err)})
                 break;
