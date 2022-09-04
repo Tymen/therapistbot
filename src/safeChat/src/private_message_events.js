@@ -30,9 +30,9 @@ module.exports = (client, servers, db) => {
                     } else if (message.content == "+claimchat") {
                         await getSafeChatUser.set({dc_staffUserId: message.author.id});
                         await getSafeChatUser.save();
-                        message.reply(message.author.username + ", claimed the chat!, This message is only visible by moderators")
+                        message.reply(message.author.username + ", claimed the chat!. This message is only visible by moderators")
                     } else {
-                        await message.reply("Use `+claimchat` to claim this chat, This message is only visible by moderators")
+                        await message.reply("Use `+claimchat` to claim this chat. This message is only visible by moderators")
                         await message.delete();
                     }
                 }
