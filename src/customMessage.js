@@ -38,7 +38,7 @@ const customMessage = {
             { name: '. . . . . . . . . . . . . . . . . . . . . . . . .', value: '\u200B', inline: false },
             { name: `**${cSuffix}help**`, value: "shows a list of all available commands", inline: false},
             { name: `**${cSuffix}ann**`, value: "Make a announcement for the server", inline: false},
-            { name: `**${cSuffix}events**`, value: "Make a announcement for an event", inline: false},
+            { name: `**${cSuffix}event**`, value: "Make a announcement for an event", inline: false},
             { name: `**${cSuffix}mod**`, value: "Make a announcement for the moderators", inline: false},
             { name: `**${cSuffix}admin**`, value: "Make a announcement for admins", inline: false},
             // { name: `**${cSuffix}createchat**`, value: "**DM ONLY** Create a anonymous chat", inline: false},
