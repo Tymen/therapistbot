@@ -7,10 +7,12 @@ const queue = {
     addQueue: async (message, args, ytdl, servers, option) => {
         if (!args[0]) {
             customMessage.tempMessage(message, "Provide a search argument or a link!", 5);
+            return;
         }
     
         if(!message.member.voice.channel) {
             customMessage.tempMessage(message, "You must be in a voice channel to play music!", 5);
+            return;
         }
         
         if(!servers[message.guild.id]) servers[message.guild.id] = {
@@ -24,7 +26,6 @@ const queue = {
                 title: `${ yt_info[0].title } (${ yt_info[0].durationRaw }) | ${ yt_info[0].channel.name }`,
                 url: yt_info[0].url
             }
-
             if (option.firstInQueue == true) {
                 server.queue.unshift(musicCache);
             } else {

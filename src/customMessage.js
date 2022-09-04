@@ -44,22 +44,28 @@ const customMessage = {
             { name: `**${cSuffix}stop**`, value: "Stop playing music and disconnect the bot from the voice channel", inline: false},
             { name: `**${cSuffix}pause**`, value: "Pause the music", inline: false},
             { name: `**${cSuffix}unpause**`, value: "unpause the music", inline: false},
-            { name: `**${cSuffix}createchat**`, value: "**DM ONLY** Create a anonymous chat", inline: false},
-            { name: `**${cSuffix}closechat**`, value: "**DM ONLY** Close a anonymous chat", inline: false},
+            // { name: `**${cSuffix}createchat**`, value: "**DM ONLY** Create a anonymous chat", inline: false},
+            // { name: `**${cSuffix}closechat**`, value: "**DM ONLY** Close a anonymous chat", inline: false},
         )
     },
+    // safechat: () => {
+    //     let cPrefix = process.env.COMMAND_PREFIX
+    //     let cSuffix = `<:green:994975541356671086> ${cPrefix}`
+    //     return new Discord.MessageEmbed()
+    //     .setColor(defaultColor)
+    //     .setTitle(`Hello resident!`)
+    //     .setDescription("What can i help you with?")
+    //     .addFields(
+    //         { name: '\u200B', value: '\u200B', inline: false },
+    //         { name: `**- Help**`, value: "\u200B", inline: true},
+    //         { name: `**- Suggestion**`, value: "\u200B", inline: true}
+    //     )
+    // },
     safechat: () => {
         let cPrefix = process.env.COMMAND_PREFIX
-        let cSuffix = `<:green:994975541356671086> ${cPrefix}`
         return new Discord.MessageEmbed()
         .setColor(defaultColor)
-        .setTitle(`Hello resident!`)
-        .setDescription("What can i help you with?")
-        .addFields(
-            { name: '\u200B', value: '\u200B', inline: false },
-            { name: `**- Help**`, value: "\u200B", inline: true},
-            { name: `**- Suggestion**`, value: "\u200B", inline: true}
-        )
+        .setImage("https://cdn.discordapp.com/attachments/980907254490464256/1016027898546757652/safechat-01.png")
     },
     tempMessage: (message, value, delay) => {
         message.channel.send(value).then( msg => {

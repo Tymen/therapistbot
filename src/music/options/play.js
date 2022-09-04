@@ -28,21 +28,21 @@ const play = async (message, ytdl, servers, player, option) => {
         })
 
         // Play music on the discord audioplayer
-        player.play(resource)
+        await player.play(resource)
 
         // Play the audioplayer on the discord bot
-        connection.subscribe(player)
+        await connection.subscribe(player)
 
-        server.dispatcher = connection.subscribe(player);
+        server.dispatcher = await connection.subscribe(player);
 
         // If the player is on idle it will queue the next song if it exists
 
         // There is a bug with the queue in combination with forceplay i will need to fix this
-        player.on("idle", function() {
+        player.on("idle", async () => {
             if(server.queue[0].url){
                 server.queue.shift();
                 console.log(server.queue);
-                playMusic(getVoiceConnection, message);
+                await playMusic(getVoiceConnection, message);
             }else {
                 connection.destroy();
             }
@@ -70,6 +70,9 @@ const play = async (message, ytdl, servers, player, option) => {
                 if (getQueue.length > 0) {
                     customMessage.tempMessage(message, "Now playing: " + getQueue[0].title, 5)
                     playMusic(getVoiceConnection, message);
+                    // if (option.forcePlay) {
+                    //     getQueue.shift();
+                    // }
                 } else {
                     customMessage.tempMessage(message, "The queue is empty!", 5)
                     message.channel.send("The queue is empty!")

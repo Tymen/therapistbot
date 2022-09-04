@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const { EventResponse } = require('./commands')
 const { privateVoice } = require('./privateVoice/main')
+const { safeChat } = require('./safeChat/main');
 const { channelId } = require('../config.json')
 // Define Variable
 const { customMessage } = require('./customMessage')
@@ -21,5 +22,13 @@ module.exports = (client, server, db) => {
     })
     client.on('voiceStateUpdate', (oldState, newState) => {
         privateVoice(oldState, newState, server, channelId.privateVoice)
+    })
+    client.on('messageReactionAdd', async (reaction, user) => {
+        if (!user.bot && reaction.message.channelId === channelId.primaryHelp) {
+            await safeChat.createChat(user, "HELP", server, db.getDB().safeChatUsers, reaction.message, customMessage.safechat())
+        }
+        if (!user.bot && reaction.message.channelId === channelId.primarySuggestion) {
+            await safeChat.createChat(user, "SUGGESTIONS", server, db.getDB().safeChatUsers, reaction.message, customMessage.safechat())
+        }
     })
 }

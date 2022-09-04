@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         dc_staffUserId: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         }
     })
     return safeChatUserModel;

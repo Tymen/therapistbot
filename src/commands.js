@@ -64,12 +64,8 @@ const EventResponse = (message, client, server, db) => {
                     customMessage.tempMessage(message, "There are no songs in the queue", 5)
                 }
                 break;
-            case 'createchat': {
-                safeChat.createChat(message, args, server, db.safeChatUsers);
-                break;
-            }
             case 'closechat': {
-                safeChat.closeChat(message, args, server, db.safeChatUsers);
+                safeChat.closeChat(message, args, server, db.safeChatUsers, client);
                 break;
             }
             case 'safechat': {

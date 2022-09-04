@@ -13,7 +13,7 @@ const client = new Client({ intents: [
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_MESSAGE_TYPING,
     Intents.FLAGS.DIRECT_MESSAGES
-], partials: ["CHANNEL"]
+], partials: ["CHANNEL", "REACTION", "MESSAGE"]
 });
 
 // Module imports
@@ -22,6 +22,10 @@ require('dotenv').config();
 const { serverStatus } = require('./src/serverStatus/main')
 const { dbConnection } = require('./database')
 const eventListener = require('./src/eventListener')
+
+const { safeChat } = require('./src/safeChat/main');
+const { channelId } = require('./config.json')
+
 var server = [];
 let db = new dbConnection();
 
@@ -41,11 +45,10 @@ client.once('ready', async () => {
         console.log("Status updated!")
         await serverStatus.updateStatus(server)
     }, 900000)
-    
+
     client.user.setActivity("+help", {type: "WATCHING"});
     console.log("Bot is online!");
 })
-
 // <=========> Login to the discord bot client <=========> //
 
 client.login(process.env.BOT_TOKEN)
