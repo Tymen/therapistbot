@@ -1,5 +1,6 @@
 const { MessageFlags } = require("discord.js");
 const { customMessage } = require('../../customMessage')
+const { roles } = require('../../../config.json')
 // const sfcPolicies = require('../../policies/safeChatPolicies').safeChatPolicies;
 module.exports = (client, servers, db) => {
     client.on("messageCreate", async message => {
@@ -31,6 +32,31 @@ module.exports = (client, servers, db) => {
                         await getSafeChatUser.set({dc_staffUserId: message.author.id});
                         await getSafeChatUser.save();
                         message.reply(message.author.username + ", claimed the chat! This message is only visible by moderators")
+                        
+                        // Temporary solution
+                        /**
+                         * 
+                         * Wanna make a array or object with a loop so it loops through the permissions
+                         * 
+                         */
+                        message.channel.permissionOverwrites.edit(roles.MAINMOD, {
+                            VIEW_CHANNEL: false
+                        })
+                        .then(channel => console.log(channel.permissionOverwrites.cache.get(message.author.id)))
+                        .catch(console.error);
+
+                        message.channel.permissionOverwrites.edit(roles.MOD, {
+                            VIEW_CHANNEL: false
+                        })
+                        .then(channel => console.log(channel.permissionOverwrites.cache.get(message.author.id)))
+                        .catch(console.error);
+
+                        message.channel.permissionOverwrites.edit(message.author, {
+                            VIEW_CHANNEL: true
+                        })
+                        .then(channel => console.log(channel.permissionOverwrites.cache.get(message.author.id)))
+                        .catch(console.error);
+
                     } else {
                         await message.reply("Use `+claimchat` to claim this chat! This message is only visible by moderators")
                         await message.delete();
