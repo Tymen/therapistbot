@@ -8,7 +8,7 @@ const sfcPolicies = require('../policies/safeChatPolicies').safeChatPolicies;
 const gPolicies = require('../policies/generalPolicies').generalPolicies;
 
 
-// <=========> Music Commands <=========> //
+// <=========> Safechat Modules Commands <=========> //
 const safeChat = {
     createChat: async (user, args, server, safeChatUsers, message, embed) => {
         await createChat(user, args, server, safeChatUsers, message, embed)
