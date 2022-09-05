@@ -1,6 +1,6 @@
 // This code needs refactoring Not happy on how it looks and works!
 const startCollector = async (message, prefix, server, channelId, type) => {
-    const confirmation = await message.channel.send("**Hello admin!**\n\nYou can type the announcement for **" + type + "**, and send it in this channel.\nThe session will end in 20 minutes.\n\nUse `" + prefix + "cancel` to cancel the message.");
+    const confirmation = await message.channel.send("**Hello!**\n\nYou can type the announcement for **" + type + "**, and send it in this channel.\nThe session will end in 20 minutes.\n\nUse `" + prefix + "cancel` to cancel the message.");
 
     const filter = (m) => m.author.id === message.author.id;
     const collector = await confirmation.channel.createMessageCollector(filter, {
