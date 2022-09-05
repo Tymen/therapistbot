@@ -46,7 +46,8 @@ client.once('ready', async () => {
         await serverStatus.updateStatus(server)
     }, 900000)
 
-    client.user.setActivity("Have a good day!", {type: "WATCHING"});
+    // client.user.setActivity("Have a good day!", {type: "WATCHING"});
+    
     console.log("Bot is online!");
 })
 // <=========> Login to the discord bot client <=========> //
