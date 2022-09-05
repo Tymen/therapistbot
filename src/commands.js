@@ -48,7 +48,7 @@ const EventResponse = async (message, client, server, db) => {
             }
             case 'ann': {
                 await gPolicies.hasAdminRole(message.member).then(async () => {
-                    announcer.sendMessage(message, prefix, server)
+                    announcer.sendMessage(message, prefix, server, channelId.announcement, "announcement")
                 }).catch(err => {console.log(err)})
                 break;
             }
