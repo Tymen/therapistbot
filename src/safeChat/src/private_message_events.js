@@ -22,8 +22,10 @@ module.exports = (client, servers, db) => {
                 if (!message.author.bot) {
                     if (getSafeChatUser.dc_staffUserId) {
                         if (getSafeChatUser.dc_staffUserId == message.author.id) {
-                            let author = client.users.cache.get(getSafeChatUser.dc_UserId)
-                            author.send(`*${message.content}*`);
+                            if(!message.content == "+closechat") {
+                                let author = client.users.cache.get(getSafeChatUser.dc_UserId)
+                                author.send(`*${message.content}*`);
+                            }
                         } else {
                             message.delete();
                             customMessage.tempMessage(message, "<@" + message.author.id+ ">, You are not allowed to interact with this chat! This message is only visible by moderators.", 10)
