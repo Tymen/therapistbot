@@ -6,7 +6,8 @@ const addSafeChatUser = async (user, channel, safeChatUser) => {
     let newChat = {
         dc_UserId: user.id,
         dc_channelId: channel.id,
-        dc_staffUserId: null
+        dc_staffUserId: null,
+        close_request: false
     }
     console.log("Created new safechat!");
     await safeChatUser.create(newChat);

@@ -10,7 +10,7 @@ module.exports = (client, servers, db) => {
             if (getSafeChatUser){
                 if (!message.author.bot) {
                     let channel = servers.channels.cache.find(channel => channel.id == getSafeChatUser.dc_channelId)
-                    channel.send(message.content)
+                    message.content === "+closechat" ? null : channel.send(message.content)
                 }
             }
 
@@ -24,7 +24,7 @@ module.exports = (client, servers, db) => {
                         if (getSafeChatUser.dc_staffUserId == message.author.id) {
                             // if(!message.content == "+closechat") {
                                 let author = client.users.cache.get(getSafeChatUser.dc_UserId)
-                                author.send(`*${message.content}*`);
+                                message.content === "+closechat" ? null : author.send(`*${message.content}*`);
                             // }
                         } else {
                             message.delete();

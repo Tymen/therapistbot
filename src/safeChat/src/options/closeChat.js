@@ -4,11 +4,11 @@ const closeChat = async (message, args, server, safeChatUsers, client) => {
             if(safeChatUser){
                 let getServerChannel = server.channels.cache.get(safeChatUser.dc_channelId)
                 if (getServerChannel) {
-                    if (!getSafeChatUser.close_request) {
+                    if (!(await safeChatUser.close_request)) {
                         getServerChannel.send("<@" + (safeChatUser.dc_staffUserId ? safeChatUser.dc_staffUserId : "NotClaimed" ) + ">, The resident wants to close this session, use `+closechat` to end this session.")
                         message.reply("Our moderators have been notified that you want to close this session! Please be patient while we close your session!\n\n**After closing this session, all chat history will be automatically deleted**")
-                        await getSafeChatUser.set({close_request: true})
-                        await getSafeChatUser.save()
+                        await safeChatUser.set({close_request: true})
+                        await safeChatUser.save()
                     }else {
                         message.reply("You already requested to close the channel!")
                     }
