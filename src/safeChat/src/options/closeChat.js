@@ -10,7 +10,7 @@ const closeChat = async (message, args, server, safeChatUsers, client) => {
                         await safeChatUser.set({close_request: true})
                         await safeChatUser.save()
                     }else {
-                        message.reply("You already requested to close the channel!")
+                        message.reply("You have already requested to close this session!")
                     }
                 } else {
                     message.channel.send("Can't close session channel doesn't exist!")
